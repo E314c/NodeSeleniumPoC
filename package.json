@@ -1,0 +1,16 @@
+{
+  "name": "nodegoatnodeselenium",
+  "version": "1.0.0",
+  "description": "A quick test of using selenium in NodeJs to test the nodeGoat project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "selenium-webdriver": "^3.6.0",
+    "yargs": "^10.0.3"
+  }
+}
