@@ -5,6 +5,9 @@ require('yargs').option('headless',{
     alias: 'd',
     choices: ['firefox', 'chrome'],
     default: 'firefox'
+}).option('proxy',{
+    alias: 'p',
+    default: true
 });
 
 

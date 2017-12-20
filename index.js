@@ -26,6 +26,17 @@ It is purely to excerise the NodeGoat website in a automated fashion as part of 
         firefoxOptions.headless();
     }
 
+    if(args.proxy){
+        const firefoxProfile = new firefoxDriver.Profile();
+        firefoxProfile.setPreference('network.proxy.type',1);               // set proxy config to manual
+        firefoxProfile.setPreference('network.proxy.http','localhost');     // we'll proxy through localhost...
+        firefoxProfile.setPreference('network.proxy.http_port', 1337);      // ..on port 1337
+        firefoxProfile.setPreference('network.proxy.no_proxies_on','');     // and this applies to routes on localhost too.
+
+        firefoxOptions.setProfile(firefoxProfile);  //Set the profile
+    }
+
+
     const driver = new Builder()
         .forBrowser(driverChoice)
         .setChromeOptions(chromeOptions)
