@@ -11,8 +11,8 @@ It is purely to excerise the NodeGoat website in a automated fashion as part of 
     const chromeDriver = require('selenium-webdriver/chrome');
     const firefoxDriver = require('selenium-webdriver/firefox');
 
-    const driverChoice = args.driver;
-    console.log('Running tests with: ', driverChoice);
+    console.log(`Running tests with: ${args.driver}`);
+    console.log(`Against NodeGoat running at: '${args.goatHost}'`);
 
     //Create options:
     const TEST_WINDOW_WIDTH = 640;
@@ -38,27 +38,32 @@ It is purely to excerise the NodeGoat website in a automated fashion as part of 
 
 
     const driver = new Builder()
-        .forBrowser(driverChoice)
+        .forBrowser(args.driver)
         .setChromeOptions(chromeOptions)
         .setFirefoxOptions(firefoxOptions)
         .build();
 
-    // Test 1: Attempt to login with 'Bob':'a Long password'
-    await driver.get('http://192.168.0.101:4000/');
-    await driver.findElement(By.name('userName')).sendKeys('Bob');
-    await driver.findElement(By.name('password')).sendKeys('a Long password');
-    await driver.findElement(By.css('button.btn.btn-danger')).click();
-    console.log('tested first url');
+    try{
+        // Test 1: Attempt to login with 'Bob':'a Long password'
+        await driver.get(`${args.goatHost}`);
+        await driver.findElement(By.name('userName')).sendKeys('Bob');
+        await driver.findElement(By.name('password')).sendKeys('a Long password');
+        await driver.findElement(By.css('button.btn.btn-danger')).click();
+        console.log('tested first url');
 
-    //Test 2: Navigate to tutorial page
-    await driver.get('http://192.168.0.101:4000/tutorial');
-    console.log('Second Test');
+        //Test 2: Navigate to tutorial page
+        await driver.get(`${args.goatHost}/tutorial`);
+        console.log('Second Test');
 
-    // Test 1: Attempt to login with 'Bob':'a Long password' and pressing enter key
-    await driver.get('http://192.168.0.101:4000/');
-    await driver.findElement(By.name('userName')).sendKeys('Bob');
-    await driver.findElement(By.name('password')).sendKeys('a Long password', Key.RETURN);
-    console.log('Third Test complete');
+        // Test 1: Attempt to login with 'Bob':'a Long password' and pressing enter key
+        await driver.get(`${args.goatHost}`);
+        await driver.findElement(By.name('userName')).sendKeys('Bob');
+        await driver.findElement(By.name('password')).sendKeys('a Long password', Key.RETURN);
+        console.log('Third Test complete');
+    } catch (err) {
+        console.error("Something went wrong when running the automation:");
+        console.error(err);
+    }
 
 
     //Exit the driver instance

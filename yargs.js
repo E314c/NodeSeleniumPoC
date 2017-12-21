@@ -5,9 +5,11 @@ require('yargs').option('headless',{
     alias: 'd',
     choices: ['firefox', 'chrome'],
     default: 'firefox'
+}).option('goatHost',{
+    default: 'http://localhost:4000'
 }).option('proxy',{
     alias: 'p',
-    default: true
+    default: false
 });
 
 
